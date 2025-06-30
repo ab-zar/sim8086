@@ -1,8 +1,8 @@
 struct memory
 {
-    u8 Bytes[1024 * 1024]; // 10 MB of memory
+    u8 Bytes[1024 * 1024]; // 1 MB of memory
 };
-#define MEMORY_ACCESS_MASK 0xFFFF
+#define MEMORY_ACCESS_MASK 0xFFFFF
 static_assert((ArrayCount(memory::Bytes) - 1) == MEMORY_ACCESS_MASK, "Memory size doesn't match access mask");
 
 struct segmented_access

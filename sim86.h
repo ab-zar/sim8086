@@ -113,6 +113,6 @@ struct instruction {
     operation_type Op;
     u32 Flags;
 
-    instruction_operand Operands[2]; // Up to 3 operands per instruction
+    instruction_operand Operands[2]; // Up to 2 operands per instruction
 };
 

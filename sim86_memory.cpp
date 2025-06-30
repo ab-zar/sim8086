@@ -1,12 +1,12 @@
 static u32 GetAbsoluteAddressOf(u16 SegmentBase, u16 Offset, u16 AdditionalOffset)
 {
-    u32 Result = (((u32)SegmentBase << 4) + (u32)(SegmentOffset + AdditionalOffset)) & MEMORY_ACCESS_MASK;
+    u32 Result = (((u32)SegmentBase << 4) + (u32)(Offset + AdditionalOffset)) & MEMORY_ACCESS_MASK;
     return Result;
 }
 
 static u32 GetAbsoluteAddressOf(segmented_access Access, u16 AdditionalOffset)
 {
-    u32 Result = GetAbsoluteAddressOf(Access.SegmentBase, Access.SegmentOffset, AdditionalOffset);
+    u32 Result = GetAbsoluteAddressOf(Access.SegmentBase, Access.Offset, AdditionalOffset);
     return Result;
 }
 

@@ -13,7 +13,35 @@ static void DisAsm8086(memory *Memory, u32 DisAsmByteCount, segmented_access Dis
 
     disasm_context Context = DefaultDisAsmContext();
 
+    u32 Count = DisAsmByteCount;
 
+    while(Count) 
+    {
+        instruction Instruction = DecodeInstruction(&Context, Memory, &At);
+        if(Instruction.Op)
+        {
+            if(Count >= Instruction.Size)
+            {
+                Count -= Instruction.Size;
+            }
+            else
+            {
+                fprintf(stderr, "ERROR: Instruction extends beyond disassembly region. \n");
+                break;
+            }
+
+            UpdateContext(&Context, Instruction);
+            if(IsPrintable(Instruction))
+            {
+                PrintInstruction(Instruction, stdout);
+                printf("\n");
+            }
+        }
+        else{
+            fprintf(stderr, "ERROR: Unrecognised binary in instruction stream.\n");
+            break;
+        }
+    }
 }
 
 int main(int ArgCount, char **Args) {
